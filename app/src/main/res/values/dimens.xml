@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="common_bar_height">48dp</dimen>
+    <dimen name="common_widget_margin">5dp</dimen>
+    <dimen name="common_widget_margin_s">2dp</dimen>
+    <dimen name="common_widget_margin_xs">3dp</dimen>
+    <dimen name="common_widget_margin_m">8dp</dimen>
+    <dimen name="common_widget_margin_l">12dp</dimen>
+    <dimen name="common_widget_margin_xl">20dp</dimen>
+    <dimen name="common_widget_margin_xxl">46dp</dimen>
+
+    <dimen name="common_widget_left_margin_s">10dp</dimen>
+    <dimen name="common_widget_left_margin_n">15dp</dimen>
+    <dimen name="common_widget_left_margin_xn">20dp</dimen>
+    <dimen name="common_widget_left_margin_xxn">25dp</dimen>
+    <dimen name="common_widget_left_margin_l">30dp</dimen>
+    <dimen name="common_widget_top_margin">15dp</dimen>
+    <dimen name="common_widget_top_margin_l">35dp</dimen>
+
+    <!-- Text Size-->
+    <dimen name="common_text_size_xxl">30sp</dimen>
+    <dimen name="common_text_size_xl">24sp</dimen>
+    <dimen name="common_text_size_l">22sp</dimen>
+    <dimen name="common_text_size_xm">20sp</dimen>
+    <dimen name="common_text_size_m">18sp</dimen>
+    <dimen name="common_text_size_xn">17sp</dimen>
+    <dimen name="common_text_size_n">16sp</dimen>
+    <dimen name="common_text_size_nn">15sp</dimen>
+    <dimen name="common_text_size_s">14sp</dimen>
+    <dimen name="common_text_size_ss">13sp</dimen>
+    <dimen name="common_text_size_xs">12sp</dimen>
+    <dimen name="common_text_size_xxs">10sp</dimen>
+
+    <!--Button Size-->
+    <dimen name="common_button_text_size_n">16sp</dimen>
+    <dimen name="common_button_height">50dp</dimen>
+    <dimen name="common_list_item_button_height">40dp</dimen>
+    <dimen name="common_round_button_size">52dp</dimen>
+    <dimen name="common_button_margin_bottom">80dp</dimen>
+    <dimen name="common_button_padding_s">4dp</dimen>
+
+</resources>
