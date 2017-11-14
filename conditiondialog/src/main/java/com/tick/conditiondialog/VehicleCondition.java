@@ -51,4 +51,42 @@ public class VehicleCondition {
         condition.setVehicleTypes(vehicleTypes);
         return condition;
     }
+
+    /**
+     * 获取车型
+     *
+     * @return 车型
+     */
+    public String getVehicleType() {
+        if (vehicleTypes != null && vehicleTypes.size() > 0) {
+            StringBuilder type = new StringBuilder();
+            for (int i = 0; i < vehicleTypes.size(); i++) {
+                type.append(vehicleTypes.get(i).getValue());
+                if (i != vehicleTypes.size() - 1) {
+                    type.append(",");
+                }
+            }
+            return type.toString();
+        }
+        return "";
+    }
+
+    /**
+     * 获取车长
+     *
+     * @return 车长
+     */
+    public String getVehicleMeter() {
+        if (vehicleMeters != null && vehicleMeters.size() > 0) {
+            StringBuilder type = new StringBuilder();
+            for (int i = 0; i < vehicleMeters.size(); i++) {
+                type.append(vehicleMeters.get(i).getValue());
+                if (i != vehicleMeters.size() - 1) {
+                    type.append(",");
+                }
+            }
+            return type.toString();
+        }
+        return "";
+    }
 }
