@@ -19,13 +19,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:background="@color/theme_bg"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_bar_height"
-            android:background="@color/white"
+            android:background="@color/dialog_title_bg"
             android:orientation="horizontal">
 
             <TextView
@@ -34,8 +34,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="取消"
-                android:textColor="@color/custom_yellow"
-                android:textSize="@dimen/common_text_size_s"/>
+                android:textColor="@color/text_gray00"
+                android:textSize="@dimen/common_text_size_n"/>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -45,7 +45,8 @@
                 android:gravity="center"
                 android:text="车长车型"
                 android:textColor="@color/text_gray00"
-                android:textSize="@dimen/common_text_size_n"/>
+                android:textSize="@dimen/common_text_size_n"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tv_sure"
@@ -54,7 +55,7 @@
                 android:gravity="center"
                 android:text="确定"
                 android:textColor="@color/custom_yellow"
-                android:textSize="@dimen/common_text_size_s"/>
+                android:textSize="@dimen/common_text_size_n"/>
         </LinearLayout>
 
         <TextView

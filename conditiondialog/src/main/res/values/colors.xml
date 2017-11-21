@@ -2,12 +2,12 @@
 <resources>
     <!--通用色板颜色-->
     <color name="transparent">#00000000</color><!--透明色 -->
-    <color name="theme_bg">#f5f7fa</color>
+    <color name="dialog_title_bg">#EAE9E9</color>
     <color name="white">#FFFFFF</color><!--白色 -->
 
     <!--自定义主题颜色-->
     <color name="custom_yellow">#F5B74C</color>
-    <color name="line_color">#cccccc</color>
+    <color name="border_color">#AAB2BD</color>
     <color name="text_gray00">#434A54</color>
     <color name="text_gray01">#656D78</color>
 
