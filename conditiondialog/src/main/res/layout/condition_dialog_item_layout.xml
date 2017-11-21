@@ -9,16 +9,13 @@
     <CheckBox
         android:id="@+id/cb_condition"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginBottom="@dimen/margin_ss"
-        android:layout_marginLeft="@dimen/margin_l"
-        android:layout_marginRight="@dimen/margin_l"
-        android:layout_marginTop="@dimen/margin_ss"
+        android:layout_height="33dp"
+        android:layout_margin="@dimen/margin_ss"
         android:background="@drawable/condition_dialog_item_checkbox_selector"
         android:button="@null"
         android:gravity="center"
         android:paddingLeft="@dimen/margin_ss"
         android:paddingRight="@dimen/margin_ss"
         android:textColor="@drawable/condition_dialog_item_checkbox_text_selector"
-        android:textSize="@dimen/common_text_size_ss"/>
+        android:textSize="@dimen/common_text_size_n"/>
 </LinearLayout>

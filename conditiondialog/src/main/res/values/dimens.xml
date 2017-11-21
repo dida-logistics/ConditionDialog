@@ -5,10 +5,10 @@
     <dimen name="margin_ss">5dp</dimen>
     <dimen name="margin_s">10dp</dimen>
     <dimen name="margin_n">15dp</dimen>
+    <dimen name="margin_nl">30dp</dimen>
     <dimen name="margin_l">12dp</dimen>
 
     <!-- Text Size-->
     <dimen name="common_text_size_n">16sp</dimen>
     <dimen name="common_text_size_s">14sp</dimen>
-    <dimen name="common_text_size_ss">13sp</dimen>
 </resources>
