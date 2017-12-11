@@ -1,4 +1,4 @@
-package com.tick.conditiondialog;
+package com.tick.conditiondialog.vehicle;
 
 import java.util.ArrayList;
 

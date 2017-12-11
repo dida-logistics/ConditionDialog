@@ -1,4 +1,6 @@
-package com.tick.conditiondialog;
+package com.tick.conditiondialog.vehicle;
+
+import com.tick.conditiondialog.ConditionEntity;
 
 /**
  * 车型实体类

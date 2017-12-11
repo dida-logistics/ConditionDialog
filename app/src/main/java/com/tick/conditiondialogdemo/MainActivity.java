@@ -5,29 +5,43 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.tick.conditiondialog.VehicleCdSelector;
-import com.tick.conditiondialog.VehicleCondition;
-import com.tick.conditiondialog.VehicleConditionSelectListener;
-import com.tick.conditiondialog.VehicleMeter;
-import com.tick.conditiondialog.VehicleType;
+import com.tick.conditiondialog.carrier.CarrierType;
+import com.tick.conditiondialog.carrier.CarrierTypeCdSelector;
+import com.tick.conditiondialog.carrier.CarrierTypeSelectListener;
+import com.tick.conditiondialog.vehicle.VehicleCdSelector;
+import com.tick.conditiondialog.vehicle.VehicleCondition;
+import com.tick.conditiondialog.vehicle.VehicleConditionSelectListener;
+import com.tick.conditiondialog.vehicle.VehicleMeter;
+import com.tick.conditiondialog.vehicle.VehicleType;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements VehicleConditionSelectListener {
+public class MainActivity extends AppCompatActivity implements VehicleConditionSelectListener,
+        CarrierTypeSelectListener {
 
-    private Button mButton;
+    private Button mVehicleButton;
+    private Button mCarrierTypeButton;
     private TextView mTextView;
     private VehicleCdSelector mVehicleCdSelector;
+    private CarrierTypeCdSelector mTypeCdSelector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mVehicleCdSelector = new VehicleCdSelector(getApplicationContext(), mock(), this);
         mVehicleCdSelector.setAnimationStyle(R.style.popwin_anim_style);
+
+        mTypeCdSelector = new CarrierTypeCdSelector(getApplicationContext(), mockCarrierType(), this);
+        mTypeCdSelector.setAnimationStyle(R.style.popwin_anim_style);
+
         mTextView = findViewById(R.id.tv_content);
-        mButton = findViewById(R.id.button);
-        mButton.setOnClickListener(v -> mVehicleCdSelector.show(v));
+        mVehicleButton = findViewById(R.id.btVehicel);
+        mVehicleButton.setOnClickListener(v -> mVehicleCdSelector.show(v));
+        mCarrierTypeButton = findViewById(R.id.btCarrierType);
+        mCarrierTypeButton.setOnClickListener(v -> mTypeCdSelector.show(v));
     }
 
     public String getContent(VehicleCondition condition) {
@@ -70,8 +84,30 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
         return vehicleCondition;
     }
 
+    public List<CarrierType> mockCarrierType() {
+        ArrayList<CarrierType> types = new ArrayList<>();
+        types.add(new CarrierType("运输公司"));
+        types.add(new CarrierType("车队"));
+        types.add(new CarrierType("车老板"));
+        types.add(new CarrierType("信息部"));
+        types.add(new CarrierType("专线"));
+        return types;
+    }
+
     @Override
     public void onSure(VehicleCondition vehicleCondition) {
         mTextView.setText(getContent(vehicleCondition));
+    }
+
+    @Override
+    public void onSure(List<CarrierType> carrierTypes) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < carrierTypes.size(); i++) {
+            result.append(carrierTypes.get(i).getValue());
+            if (i != carrierTypes.size() - 1) {
+                result.append(",");
+            }
+        }
+        mTextView.setText(result.toString());
     }
 }

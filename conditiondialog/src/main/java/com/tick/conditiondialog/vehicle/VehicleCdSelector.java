@@ -1,4 +1,4 @@
-package com.tick.conditiondialog;
+package com.tick.conditiondialog.vehicle;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import com.tick.conditiondialog.ConditionDialogAdapter;
+import com.tick.conditiondialog.R;
+import com.tick.conditiondialog.ViewUtil;
 
 /**
  * 车辆条件选择器
@@ -21,7 +25,8 @@ public class VehicleCdSelector extends PopupWindow {
     private ConditionDialogAdapter<VehicleType> mTypeAdapter;
     private View mTop;
 
-    public VehicleCdSelector(Context context, VehicleCondition vehicleCondition, VehicleConditionSelectListener listener) {
+    public VehicleCdSelector(Context context, VehicleCondition vehicleCondition, VehicleConditionSelectListener
+            listener) {
         mListener = listener;
         VehicleCondition condition = vehicleCondition.cloneCondition();
         View container = LayoutInflater.from(context).inflate(R.layout.vehicel_condition_popwindow_layout, null, false);
@@ -36,7 +41,8 @@ public class VehicleCdSelector extends PopupWindow {
         meterGridView.setOnItemClickListener((parent, view, position, id) -> mMeterAdapter.onCheckItemClick(position));
 
         GridView typeGridView = container.findViewById(R.id.gv_vehicle_type);
-        mTypeAdapter = new ConditionDialogAdapter<>(context, condition.getVehicleTypes(), ConditionDialogAdapter.TYPE_MULTIPLY);
+        mTypeAdapter = new ConditionDialogAdapter<>(context, condition.getVehicleTypes(), ConditionDialogAdapter
+                .TYPE_MULTIPLY);
         typeGridView.setAdapter(mTypeAdapter);
         typeGridView.setOnItemClickListener(((parent, view, position, id) -> mTypeAdapter.onCheckItemClick(position)));
 
@@ -54,7 +60,7 @@ public class VehicleCdSelector extends PopupWindow {
         title.setHighlightColor(ContextCompat.getColor(context, android.R.color.transparent));
         DisplayMetrics metrics = ViewUtil.getDisplayMetrics(context);
         setWidth(metrics.widthPixels);
-        setHeight(metrics.heightPixels);
+        setHeight(metrics.heightPixels - ViewUtil.getStateBarHeight(context));
         setContentView(container);
         setFocusable(true);
     }

@@ -10,5 +10,5 @@
 
     <!-- Text Size-->
     <dimen name="common_text_size_n">16sp</dimen>
-    <dimen name="common_text_size_s">14sp</dimen>
+    <dimen name="common_text_size_s">13sp</dimen>
 </resources>

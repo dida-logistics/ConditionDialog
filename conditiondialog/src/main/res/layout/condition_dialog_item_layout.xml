@@ -17,5 +17,5 @@
         android:paddingLeft="@dimen/margin_ss"
         android:paddingRight="@dimen/margin_ss"
         android:textColor="@drawable/condition_dialog_item_checkbox_text_selector"
-        android:textSize="@dimen/common_text_size_n"/>
+        android:textSize="@dimen/common_text_size_s"/>
 </LinearLayout>
