@@ -17,7 +17,7 @@
 <pre>
 <code>
   dependencies {
-	        compile 'com.github.dida-logistics:ConditionDialog:1.0.1'
+	        compile 'com.github.dida-logistics:ConditionDialog:1.0.4'
 	}
 </code>
 </pre>
