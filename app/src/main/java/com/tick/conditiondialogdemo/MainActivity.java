@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
     private TextView mTextView;
     private VehicleCdSelector mVehicleCdSelector;
     private CarrierTypeCdSelector mTypeCdSelector;
+    private String mSelectedType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
         mVehicleButton = findViewById(R.id.btVehicel);
         mVehicleButton.setOnClickListener(v -> mVehicleCdSelector.show(v));
         mCarrierTypeButton = findViewById(R.id.btCarrierType);
-        mCarrierTypeButton.setOnClickListener(v -> mTypeCdSelector.show(v));
+        mCarrierTypeButton.setOnClickListener(v -> mTypeCdSelector.show(v, mSelectedType));
     }
 
     public String getContent(VehicleCondition condition) {
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
                 result.append(",");
             }
         }
-        mTextView.setText(result.toString());
+        mSelectedType = result.toString();
+        mTextView.setText(mSelectedType);
     }
 }

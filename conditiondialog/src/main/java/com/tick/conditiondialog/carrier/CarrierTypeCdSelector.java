@@ -2,6 +2,7 @@ package com.tick.conditiondialog.carrier;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -85,6 +86,14 @@ public class CarrierTypeCdSelector extends PopupWindow {
     public void show(View v) {
         showAtLocation(v, Gravity.TOP, 0, 0);
         mTop.animate().alpha(1f).setDuration(100).setStartDelay(600);
+    }
+
+    public void show(View v, String types) {
+        if (!TextUtils.isEmpty(types)) {
+            String[] conditions = types.split(",");
+            mTypeAdapter.setItemClicked(conditions);
+        }
+        show(v);
     }
 
     public void hide() {

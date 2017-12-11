@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 条件选择框适配器
@@ -121,6 +122,42 @@ public class ConditionDialogAdapter<T extends ConditionEntity> extends BaseAdapt
         entity.setCheck(!entity.isCheck());
         notifyDataSetChanged();
     }
+
+    /**
+     * 标记已经选中的条件
+     *
+     * @param args 选中条件数组
+     */
+    public final void setItemClicked(String[] args) {
+        if (args == null || args.length == 0) {
+            return;
+        }
+        if (TYPE_SINGLE == mType) {
+            //单选模式
+            clearCheck();
+            String selected = args[0];
+            for (T t : mConditions) {
+                if (selected.equals(t.getValue())) {
+                    t.setCheck(true);
+                    mSelectChilds.add(t);
+                    break;
+                }
+            }
+        } else {
+            //多选模式
+            clearCheck();
+            for (String select : args) {
+                for (T t : mConditions) {
+                    if (select.equals(t.getValue())) {
+                        t.setCheck(true);
+                        mSelectChilds.add(t);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 
     public ArrayList<T> getSelectChilds() {
         return mSelectChilds;
