@@ -55,15 +55,16 @@ public class VehicleCondition {
     /**
      * 获取车型
      *
+     * @param split 车型之间的分隔符
      * @return 车型
      */
-    public String getVehicleType() {
+    public String getVehicleType(String split) {
         if (vehicleTypes != null && vehicleTypes.size() > 0) {
             StringBuilder type = new StringBuilder();
             for (int i = 0; i < vehicleTypes.size(); i++) {
                 type.append(vehicleTypes.get(i).getValue());
                 if (i != vehicleTypes.size() - 1) {
-                    type.append(",");
+                    type.append(split);
                 }
             }
             return type.toString();
@@ -74,15 +75,16 @@ public class VehicleCondition {
     /**
      * 获取车长
      *
+     * @param split 车型之间的分隔符
      * @return 车长
      */
-    public String getVehicleMeter() {
+    public String getVehicleMeter(String split) {
         if (vehicleMeters != null && vehicleMeters.size() > 0) {
             StringBuilder type = new StringBuilder();
             for (int i = 0; i < vehicleMeters.size(); i++) {
                 type.append(vehicleMeters.get(i).getValue());
                 if (i != vehicleMeters.size() - 1) {
-                    type.append(",");
+                    type.append(split);
                 }
             }
             return type.toString();
