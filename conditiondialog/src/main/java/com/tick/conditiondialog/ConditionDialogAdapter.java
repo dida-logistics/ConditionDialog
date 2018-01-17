@@ -27,7 +27,6 @@ public class ConditionDialogAdapter<T extends ConditionEntity> extends BaseAdapt
     public static final int TYPE_MULTIPLY = 1;
 
     private ArrayList<T> mConditions;
-    private ArrayList<T> mSelectChilds = new ArrayList<>();
     private Context mContext;
     private int mType;
 
@@ -39,12 +38,6 @@ public class ConditionDialogAdapter<T extends ConditionEntity> extends BaseAdapt
         mContext = context;
         mConditions = conditions == null ? new ArrayList<>() : conditions;
         mType = type;
-        mSelectChilds.clear();
-        for (T entity : mConditions) {
-            if (entity.isCheck()) {
-                mSelectChilds.add(entity);
-            }
-        }
     }
 
     @Override
@@ -86,7 +79,6 @@ public class ConditionDialogAdapter<T extends ConditionEntity> extends BaseAdapt
     }
 
     public void reset() {
-        mSelectChilds.clear();
         for (ConditionEntity entity : mConditions) {
             entity.setCheck(false);
         }
@@ -94,10 +86,9 @@ public class ConditionDialogAdapter<T extends ConditionEntity> extends BaseAdapt
     }
 
     private void clearCheck() {
-        for (ConditionEntity entity : mSelectChilds) {
+        for (ConditionEntity entity : mConditions) {
             entity.setCheck(false);
         }
-        mSelectChilds.clear();
     }
 
     public final void onCheckItemClick(int position) {
@@ -108,16 +99,6 @@ public class ConditionDialogAdapter<T extends ConditionEntity> extends BaseAdapt
         if (TYPE_SINGLE == mType) {
             //单选模式
             clearCheck();
-            if (!entity.isCheck()) {
-                mSelectChilds.add(entity);
-            }
-        } else {
-            //多选模式
-            if (!entity.isCheck()) {
-                mSelectChilds.add(entity);
-            } else {
-                mSelectChilds.remove(entity);
-            }
         }
         entity.setCheck(!entity.isCheck());
         notifyDataSetChanged();
@@ -139,7 +120,6 @@ public class ConditionDialogAdapter<T extends ConditionEntity> extends BaseAdapt
             for (T t : mConditions) {
                 if (selected.equals(t.getValue())) {
                     t.setCheck(true);
-                    mSelectChilds.add(t);
                     break;
                 }
             }
@@ -150,7 +130,6 @@ public class ConditionDialogAdapter<T extends ConditionEntity> extends BaseAdapt
                 for (T t : mConditions) {
                     if (select.equals(t.getValue())) {
                         t.setCheck(true);
-                        mSelectChilds.add(t);
                     }
                 }
             }
@@ -158,8 +137,13 @@ public class ConditionDialogAdapter<T extends ConditionEntity> extends BaseAdapt
         notifyDataSetChanged();
     }
 
-
     public ArrayList<T> getSelectChilds() {
-        return mSelectChilds;
+        ArrayList<T> list = new ArrayList<>();
+        for (T t : mConditions) {
+            if (t.isCheck()) {
+                list.add(t);
+            }
+        }
+        return list;
     }
 }

@@ -1,7 +1,9 @@
 package com.tick.conditiondialog.vehicle;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import com.tick.conditiondialog.R;
 import com.tick.conditiondialog.ViewUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 车长选择器
@@ -27,7 +30,7 @@ public class VehicleMeterSelector extends PopupWindow {
     private View mTop;
 
     public VehicleMeterSelector(Context context, ArrayList<VehicleMeter> vehicleMeters, VehicleMetersSelectListener
-            listener, int type) {
+            listener, int type, @NonNull List<String> selectVehicleMeters) {
         mListener = listener;
         View container = LayoutInflater.from(context).inflate(R.layout.vehicle_meter_condition_popwindow_layout,
                 null, false);
@@ -38,6 +41,14 @@ public class VehicleMeterSelector extends PopupWindow {
 
         title.setText("车长");
         GridView meterGridView = container.findViewById(R.id.gv_condition);
+        for (String str : selectVehicleMeters) {
+            for (VehicleMeter vehicleMeter : vehicleMeters) {
+                if (!TextUtils.isEmpty(str) && str.equals(vehicleMeter.getValue())) {
+                    vehicleMeter.setCheck(true);
+                    break;
+                }
+            }
+        }
         mMeterAdapter = new ConditionDialogAdapter<>(context, vehicleMeters, type);
         meterGridView.setAdapter(mMeterAdapter);
         meterGridView.setOnItemClickListener((parent, view, position, id) -> mMeterAdapter.onCheckItemClick(position));
@@ -62,7 +73,7 @@ public class VehicleMeterSelector extends PopupWindow {
 
     public VehicleMeterSelector(Context context, ArrayList<VehicleMeter> vehicleMeters, VehicleMetersSelectListener
             listener) {
-        this(context, vehicleMeters, listener, ConditionDialogAdapter.TYPE_MULTIPLY);
+        this(context, vehicleMeters, listener, ConditionDialogAdapter.TYPE_MULTIPLY, new ArrayList<>());
     }
 
     public void show(View v) {

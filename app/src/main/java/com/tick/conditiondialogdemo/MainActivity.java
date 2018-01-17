@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.tick.conditiondialog.ConditionDialogAdapter;
 import com.tick.conditiondialog.carrier.CarrierType;
 import com.tick.conditiondialog.carrier.CarrierTypeCdSelector;
 import com.tick.conditiondialog.carrier.CarrierTypeSelectListener;
@@ -39,8 +40,12 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        List<String> list = new ArrayList<>();
+        list.add("平板车3");
+        list.add("平板车7");
 
-        mVehicleCdSelector = new VehicleCdSelector(getApplicationContext(), mock(), this);
+        mVehicleCdSelector = new VehicleCdSelector(getApplicationContext(), mock(), this, ConditionDialogAdapter
+                .TYPE_MULTIPLY, list, ConditionDialogAdapter.TYPE_SINGLE, new ArrayList<>());
         mVehicleCdSelector.setAnimationStyle(R.style.popwin_anim_style);
 
         mVehicleTypeSelector = new VehicleTypeSelector(getApplicationContext(), mockTypes(), vehicleTypes -> {
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
             }
             mSelectedType = result.toString();
             mTextView.setText(mSelectedType);
-        });
+        }, ConditionDialogAdapter.TYPE_MULTIPLY, list);
         mVehicleTypeSelector.setAnimationStyle(R.style.popwin_anim_style);
 
         mVehicleMeterSelector = new VehicleMeterSelector(getApplicationContext(), mockMeters(), vehicleMeters -> {
@@ -69,7 +74,11 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
         });
         mVehicleMeterSelector.setAnimationStyle(R.style.popwin_anim_style);
 
-        mTypeCdSelector = new CarrierTypeCdSelector(getApplicationContext(), mockCarrierType(), this);
+        List<String> carrierList = new ArrayList<>();
+        carrierList.add("车队");
+        carrierList.add("平板车7");
+        mTypeCdSelector = new CarrierTypeCdSelector(getApplicationContext(), mockCarrierType(), this,
+                ConditionDialogAdapter.TYPE_MULTIPLY, carrierList);
         mTypeCdSelector.setAnimationStyle(R.style.popwin_anim_style);
 
         mTextView = findViewById(R.id.tv_content);

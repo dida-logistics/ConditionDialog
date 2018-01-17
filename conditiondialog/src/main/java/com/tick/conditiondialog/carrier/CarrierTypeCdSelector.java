@@ -1,6 +1,7 @@
 package com.tick.conditiondialog.carrier;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -28,7 +29,8 @@ public class CarrierTypeCdSelector extends PopupWindow {
     private ConditionDialogAdapter<CarrierType> mTypeAdapter;
     private View mTop;
 
-    public CarrierTypeCdSelector(Context context, List<CarrierType> carrierTypes, CarrierTypeSelectListener listener) {
+    public CarrierTypeCdSelector(Context context, List<CarrierType> carrierTypes, CarrierTypeSelectListener listener,
+                                 int type, @NonNull List<String> selectCarrierTypes) {
         mListener = listener;
         try {
             if (carrierTypes == null) {
@@ -36,7 +38,14 @@ public class CarrierTypeCdSelector extends PopupWindow {
             }
             ArrayList<CarrierType> list = new ArrayList<>();
             for (CarrierType carrierType : carrierTypes) {
-                list.add(carrierType.clone());
+                CarrierType entity = carrierType.clone();
+                list.add(entity);
+                for (String str : selectCarrierTypes) {
+                    if (!TextUtils.isEmpty(str) && str.equals(entity.getValue())) {
+                        entity.setCheck(true);
+                        break;
+                    }
+                }
             }
             View container = LayoutInflater.from(context).inflate(R.layout.carrier_type_condition_popwindow_layout,
                     null, false);
@@ -46,7 +55,7 @@ public class CarrierTypeCdSelector extends PopupWindow {
             TextView tvSure = container.findViewById(R.id.tv_sure);
             GridView meterGridView = container.findViewById(R.id.gv_condition);
             title.setText("承运商类型");
-            mTypeAdapter = new ConditionDialogAdapter<>(context, list, ConditionDialogAdapter.TYPE_MULTIPLY);
+            mTypeAdapter = new ConditionDialogAdapter<>(context, list, type);
             meterGridView.setAdapter(mTypeAdapter);
             meterGridView.setOnItemClickListener((parent, view, position, id) -> mTypeAdapter.onCheckItemClick
                     (position));
@@ -78,6 +87,10 @@ public class CarrierTypeCdSelector extends PopupWindow {
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
+    }
+
+    public CarrierTypeCdSelector(Context context, List<CarrierType> carrierTypes, CarrierTypeSelectListener listener) {
+        this(context, carrierTypes, listener, ConditionDialogAdapter.TYPE_MULTIPLY, new ArrayList<>());
     }
 
     public void show(View v) {

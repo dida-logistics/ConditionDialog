@@ -1,7 +1,9 @@
 package com.tick.conditiondialog.vehicle;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 import com.tick.conditiondialog.ConditionDialogAdapter;
 import com.tick.conditiondialog.R;
 import com.tick.conditiondialog.ViewUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 车辆条件选择器
@@ -26,7 +31,8 @@ public class VehicleCdSelector extends PopupWindow {
     private View mTop;
 
     public VehicleCdSelector(Context context, VehicleCondition vehicleCondition, VehicleConditionSelectListener
-            listener) {
+            listener, int vehicleTypeType, @NonNull List<String> selectVehicleTypes, int vehicleMeterType, @NonNull
+                                     List<String> selectVehicleMeters) {
         mListener = listener;
         VehicleCondition condition = vehicleCondition.cloneCondition();
         View container = LayoutInflater.from(context).inflate(R.layout.vehicel_condition_popwindow_layout, null, false);
@@ -36,13 +42,28 @@ public class VehicleCdSelector extends PopupWindow {
         TextView tvSure = container.findViewById(R.id.tv_sure);
 
         GridView meterGridView = container.findViewById(R.id.gv_vehicle_meter);
-        mMeterAdapter = new ConditionDialogAdapter<>(context, condition.getVehicleMeters());
+        for (String str : selectVehicleMeters) {
+            for (VehicleMeter vehicleMeter : condition.getVehicleMeters()) {
+                if (!TextUtils.isEmpty(str) && str.equals(vehicleMeter.getValue())) {
+                    vehicleMeter.setCheck(true);
+                    break;
+                }
+            }
+        }
+        mMeterAdapter = new ConditionDialogAdapter<>(context, condition.getVehicleMeters(), vehicleMeterType);
         meterGridView.setAdapter(mMeterAdapter);
         meterGridView.setOnItemClickListener((parent, view, position, id) -> mMeterAdapter.onCheckItemClick(position));
 
         GridView typeGridView = container.findViewById(R.id.gv_vehicle_type);
-        mTypeAdapter = new ConditionDialogAdapter<>(context, condition.getVehicleTypes(), ConditionDialogAdapter
-                .TYPE_MULTIPLY);
+        for (String str : selectVehicleTypes) {
+            for (VehicleType vehicleType : condition.getVehicleTypes()) {
+                if (!TextUtils.isEmpty(str) && str.equals(vehicleType.getValue())) {
+                    vehicleType.setCheck(true);
+                    break;
+                }
+            }
+        }
+        mTypeAdapter = new ConditionDialogAdapter<>(context, condition.getVehicleTypes(), vehicleTypeType);
         typeGridView.setAdapter(mTypeAdapter);
         typeGridView.setOnItemClickListener(((parent, view, position, id) -> mTypeAdapter.onCheckItemClick(position)));
 
@@ -63,6 +84,12 @@ public class VehicleCdSelector extends PopupWindow {
         setHeight(metrics.heightPixels - ViewUtil.getStateBarHeight(context));
         setContentView(container);
         setFocusable(true);
+    }
+
+    public VehicleCdSelector(Context context, VehicleCondition vehicleCondition, VehicleConditionSelectListener
+            listener) {
+        this(context, vehicleCondition, listener, ConditionDialogAdapter.TYPE_MULTIPLY, new ArrayList<>(),
+                ConditionDialogAdapter.TYPE_SINGLE, new ArrayList<>());
     }
 
     public void show(View v) {

@@ -1,7 +1,9 @@
 package com.tick.conditiondialog.vehicle;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import com.tick.conditiondialog.R;
 import com.tick.conditiondialog.ViewUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 车辆条件选择器
@@ -27,7 +30,7 @@ public class VehicleTypeSelector extends PopupWindow {
     private View mTop;
 
     public VehicleTypeSelector(Context context, ArrayList<VehicleType> vehicleTypes, VehicleTypeSelectListener
-            listener, int type) {
+            listener, int type, @NonNull List<String> selectVehicleTypes) {
         mListener = listener;
         View container = LayoutInflater.from(context).inflate(R.layout.vehicle_type_condition_popwindow_layout, null,
                 false);
@@ -38,6 +41,14 @@ public class VehicleTypeSelector extends PopupWindow {
 
         title.setText("车型");
         GridView typeGridView = container.findViewById(R.id.gv_condition);
+        for (String str : selectVehicleTypes) {
+            for (VehicleType vehicleType : vehicleTypes) {
+                if (!TextUtils.isEmpty(str) && str.equals(vehicleType.getValue())) {
+                    vehicleType.setCheck(true);
+                    break;
+                }
+            }
+        }
         mTypeAdapter = new ConditionDialogAdapter<>(context, vehicleTypes, type);
         typeGridView.setAdapter(mTypeAdapter);
         typeGridView.setOnItemClickListener(((parent, view, position, id) -> mTypeAdapter.onCheckItemClick(position)));
@@ -62,7 +73,7 @@ public class VehicleTypeSelector extends PopupWindow {
 
     public VehicleTypeSelector(Context context, ArrayList<VehicleType> vehicleTypes, VehicleTypeSelectListener
             listener) {
-        this(context, vehicleTypes, listener, ConditionDialogAdapter.TYPE_MULTIPLY);
+        this(context, vehicleTypes, listener, ConditionDialogAdapter.TYPE_MULTIPLY, new ArrayList<>());
     }
 
     public void show(View v) {
