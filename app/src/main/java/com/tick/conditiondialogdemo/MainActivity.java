@@ -12,7 +12,11 @@ import com.tick.conditiondialog.vehicle.VehicleCdSelector;
 import com.tick.conditiondialog.vehicle.VehicleCondition;
 import com.tick.conditiondialog.vehicle.VehicleConditionSelectListener;
 import com.tick.conditiondialog.vehicle.VehicleMeter;
+import com.tick.conditiondialog.vehicle.VehicleMeterSelector;
+import com.tick.conditiondialog.vehicle.VehicleMetersSelectListener;
 import com.tick.conditiondialog.vehicle.VehicleType;
+import com.tick.conditiondialog.vehicle.VehicleTypeSelectListener;
+import com.tick.conditiondialog.vehicle.VehicleTypeSelector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +26,12 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
 
     private Button mVehicleButton;
     private Button mCarrierTypeButton;
+    private Button mVehicleTypeButton;
+    private Button mVehicleMeterButton;
     private TextView mTextView;
     private VehicleCdSelector mVehicleCdSelector;
+    private VehicleMeterSelector mVehicleMeterSelector;
+    private VehicleTypeSelector mVehicleTypeSelector;
     private CarrierTypeCdSelector mTypeCdSelector;
     private String mSelectedType;
 
@@ -35,12 +43,43 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
         mVehicleCdSelector = new VehicleCdSelector(getApplicationContext(), mock(), this);
         mVehicleCdSelector.setAnimationStyle(R.style.popwin_anim_style);
 
+        mVehicleTypeSelector = new VehicleTypeSelector(getApplicationContext(), mockTypes(), vehicleTypes -> {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < vehicleTypes.size(); i++) {
+                result.append(vehicleTypes.get(i).getValue());
+                if (i != vehicleTypes.size() - 1) {
+                    result.append(",");
+                }
+            }
+            mSelectedType = result.toString();
+            mTextView.setText(mSelectedType);
+        });
+        mVehicleTypeSelector.setAnimationStyle(R.style.popwin_anim_style);
+
+        mVehicleMeterSelector = new VehicleMeterSelector(getApplicationContext(), mockMeters(), vehicleMeters -> {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < vehicleMeters.size(); i++) {
+                result.append(vehicleMeters.get(i).getValue());
+                if (i != vehicleMeters.size() - 1) {
+                    result.append(",");
+                }
+            }
+            mSelectedType = result.toString();
+            mTextView.setText(mSelectedType);
+        });
+        mVehicleMeterSelector.setAnimationStyle(R.style.popwin_anim_style);
+
         mTypeCdSelector = new CarrierTypeCdSelector(getApplicationContext(), mockCarrierType(), this);
         mTypeCdSelector.setAnimationStyle(R.style.popwin_anim_style);
 
         mTextView = findViewById(R.id.tv_content);
         mVehicleButton = findViewById(R.id.btVehicel);
         mVehicleButton.setOnClickListener(v -> mVehicleCdSelector.show(v));
+        mVehicleTypeButton = findViewById(R.id.btVehicleType);
+        mVehicleTypeButton.setOnClickListener(v -> mVehicleTypeSelector.show(v));
+        mVehicleMeterButton = findViewById(R.id.btVehicleMeter);
+        mVehicleMeterButton.setOnClickListener(v -> mVehicleMeterSelector.show(v));
+
         mCarrierTypeButton = findViewById(R.id.btCarrierType);
         mCarrierTypeButton.setOnClickListener(v -> mTypeCdSelector.show(v, mSelectedType));
     }
@@ -66,8 +105,23 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
 
     public VehicleCondition mock() {
         VehicleCondition vehicleCondition = new VehicleCondition();
-        ArrayList<VehicleMeter> meters = new ArrayList<>();
+        vehicleCondition.setVehicleMeters(mockMeters());
+        vehicleCondition.setVehicleTypes(mockTypes());
+        return vehicleCondition;
+    }
+
+    public ArrayList<VehicleType> mockTypes() {
         ArrayList<VehicleType> types = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            VehicleType type = new VehicleType();
+            type.setVehicleType("平板车" + i);
+            types.add(type);
+        }
+        return types;
+    }
+
+    public ArrayList<VehicleMeter> mockMeters() {
+        ArrayList<VehicleMeter> meters = new ArrayList<>();
         double d = 1.0;
         for (int i = 0; i < 25; i++) {
             d = d + i;
@@ -75,14 +129,7 @@ public class MainActivity extends AppCompatActivity implements VehicleConditionS
             meter.setVehicleMeter(Double.toString(d));
             meters.add(meter);
         }
-        for (int i = 0; i < 30; i++) {
-            VehicleType type = new VehicleType();
-            type.setVehicleType("平板车" + i);
-            types.add(type);
-        }
-        vehicleCondition.setVehicleMeters(meters);
-        vehicleCondition.setVehicleTypes(types);
-        return vehicleCondition;
+        return meters;
     }
 
     public List<CarrierType> mockCarrierType() {

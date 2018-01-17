@@ -14,10 +14,6 @@ import android.widget.TextView;
 import com.tick.conditiondialog.ConditionDialogAdapter;
 import com.tick.conditiondialog.R;
 import com.tick.conditiondialog.ViewUtil;
-import com.tick.conditiondialog.vehicle.VehicleCondition;
-import com.tick.conditiondialog.vehicle.VehicleConditionSelectListener;
-import com.tick.conditiondialog.vehicle.VehicleMeter;
-import com.tick.conditiondialog.vehicle.VehicleType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +44,8 @@ public class CarrierTypeCdSelector extends PopupWindow {
             TextView title = container.findViewById(R.id.tv_title);
             TextView tvCancel = container.findViewById(R.id.tv_cancel);
             TextView tvSure = container.findViewById(R.id.tv_sure);
-            GridView meterGridView = container.findViewById(R.id.gv_carrier_type);
+            GridView meterGridView = container.findViewById(R.id.gv_condition);
+            title.setText("承运商类型");
             mTypeAdapter = new ConditionDialogAdapter<>(context, list, ConditionDialogAdapter.TYPE_MULTIPLY);
             meterGridView.setAdapter(mTypeAdapter);
             meterGridView.setOnItemClickListener((parent, view, position, id) -> mTypeAdapter.onCheckItemClick

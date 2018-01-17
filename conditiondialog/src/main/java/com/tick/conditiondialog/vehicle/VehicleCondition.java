@@ -52,6 +52,30 @@ public class VehicleCondition {
         return condition;
     }
 
+    public ArrayList<VehicleType> cloneVehicleTypes() {
+        ArrayList<VehicleType> vehicleTypes = new ArrayList<>();
+        try {
+            for (VehicleType vehicleType : getVehicleTypes()) {
+                vehicleTypes.add((VehicleType) vehicleType.clone());
+            }
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return vehicleTypes;
+    }
+
+    public ArrayList<VehicleMeter> cloneVehicleMeters() {
+        ArrayList<VehicleMeter> vehicleMeters = new ArrayList<>();
+        try {
+            for (VehicleMeter vehicleMeter : getVehicleMeters()) {
+                vehicleMeters.add((VehicleMeter) vehicleMeter.clone());
+            }
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return vehicleMeters;
+    }
+
     /**
      * 获取车型
      *
